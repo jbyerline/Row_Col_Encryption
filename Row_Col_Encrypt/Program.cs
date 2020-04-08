@@ -13,6 +13,8 @@ namespace Row_Col_Encrypt
             
             inputString = Console.ReadLine();
 
+            string ogstring = inputString;
+
             inputStringLen = inputString.Length;
 
             // Take square root or string length
@@ -35,6 +37,16 @@ namespace Row_Col_Encrypt
             char[] tempArr = inputString.ToCharArray();
             char[] OneDimensionalArray = new char[twoDimensionalArraySize * twoDimensionalArraySize];
 
+            // Replace (space) with _
+            for (var i = 0; i < inputString.Length; i++)
+            {
+                if (tempArr[i] == ' ')
+                {
+                    tempArr[i] = '_';
+                }
+                Console.WriteLine(tempArr[i]);
+            }
+
             // Initializes both 2D arrays
             char[,] initialArr = new char[twoDimensionalArraySize, twoDimensionalArraySize];
             char[,] finalArr = new char[twoDimensionalArraySize, twoDimensionalArraySize];
@@ -45,7 +57,7 @@ namespace Row_Col_Encrypt
                 for (int j = 0; j < twoDimensionalArraySize; j++)
                 {
                     initialArr[i, j] = tempArr[i * twoDimensionalArraySize + j];
-                    Console.WriteLine("2D Array[" + i + "][" + j + "] = " + initialArr[i, j] + "\n");
+                    //Console.WriteLine("2D Array[" + i + "][" + j + "] = " + initialArr[i, j] + "\n");
                 }
             }
 
@@ -55,7 +67,7 @@ namespace Row_Col_Encrypt
                 for (int j = 0; j < twoDimensionalArraySize; j++)
                 {
                     finalArr[i,j] = initialArr[j, i];
-                    Console.WriteLine("2D Array[" + i + "][" + j + "] = " + finalArr[i, j] + "\n");
+                    //Console.WriteLine("2D Array[" + i + "][" + j + "] = " + finalArr[i, j] + "\n");
                 }
             }
 
@@ -66,6 +78,20 @@ namespace Row_Col_Encrypt
                 {
                     OneDimensionalArray[index] = finalArr[y, x];
                     index++;
+                }
+            }
+
+            // If string contains _, its been encrypted. So remove the _
+            if (ogstring.Contains("_"))
+            {
+                // Replace _ with (space)
+                for (var i = 0; i < OneDimensionalArray.Length; i++)
+                {
+                    if (OneDimensionalArray[i] == '_')
+                    {
+                        OneDimensionalArray[i] = ' ';
+                    }
+                    Console.WriteLine(OneDimensionalArray[i]);
                 }
             }
 
